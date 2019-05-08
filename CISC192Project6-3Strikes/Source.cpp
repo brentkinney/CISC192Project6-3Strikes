@@ -27,48 +27,52 @@ int main()
 		int topRange = 7;
 
 		//print rules of the game
-		cout << " *********** Welcome to Three Strikes Game ***********" << endl;
-		cout << "      Pick a chip from a bag, the chip will contain" << endl;
-		cout << "     a digit or a strike, if it's a digit then guess" << endl;
-		cout << "      which position it belongs to the car's price" << endl;
-		cout << "     PANEL   : _ _ _ _ _ <- this is the 0th position" << endl;
-		cout << "     POSITION: 4 3 2 1 0" << endl;
-		cout << " Accumulating three strikes will result in losing the game." << endl;
-		cout << "~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~" << endl;
+		std::cout << " *********** Welcome to Three Strikes Game ***********" << endl;
+		std::cout << "      Pick a chip from a bag, the chip will contain" << endl;
+		std::cout << "     a digit or a strike, if it's a digit then guess" << endl;
+		std::cout << "      which position it belongs to the car's price" << endl;
+		std::cout << "     PANEL   : _ _ _ _ _ <- this is the 0th position" << endl;
+		std::cout << "     POSITION: 4 3 2 1 0" << endl;
+		std::cout << " Accumulating three strikes will result in losing the game." << endl;
+		std::cout << "~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~" << endl;
+		std::cout << endl;
+		std::cout << "The price of the Car is $35297" << endl;
+		std::cout << "~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~" << endl;
 
 		do
 		{
 			//check if user has correctly placed all digits
 			if (digitsPlaced == 5)
 			{
-				cout << "Congrats, you won! You placed all 5 digits correctly.\n";
-				cout << "The price of the car was: $" << price << "\n\n";
+				std::cout << "Congrats, you won! You placed all 5 digits correctly.\n";
+				std::cout << "The price of the car was: $" << price << "\n\n";
 				break;
 			}
 			else
 			{
 				//ask user if they would like to draw a chip or quit
-				cout << "Enter 'p' to pick a chip, or any other key to quit the game: ";
-				cin >> play;
+				std::cout << "Enter 'p' to pick a chip, or any other key to quit the game: ";
+				std::cin >> play;
 				if (play == 'p' || play == 'P')
 				{
 					//display the strikes hit, digits placed, and panel
-					cout << "Strikes hit: " << strikes << endl;
-					cout << "Digits placed: " << digitsPlaced << endl;
-					cout << "     PANEL   :$" << place4 << " " << place3 << " " << place2 << " " << place1 << " " << place0 << endl;
-					cout << "     POSITION: 4 3 2 1 0" << endl;
-					
+					std::cout << "Strikes hit: " << strikes << endl;
+					std::cout << "Digits placed: " << digitsPlaced << endl;
+					std::cout << "     PANEL   :$" << place4 << " " << place3 << " " << place2 << " " << place1 << " " << place0 << endl;
+					std::cout << "     POSITION: 4 3 2 1 0" << endl;
+					std::cout << "~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~-^-~" << endl;
+
 					//draw random number
 					std::random_device rd;
 					std::mt19937 rng(rd());
 					std::uniform_int_distribution<int> uni(0, topRange);
 					auto randomInteger = uni(rng);
-					cout << "\n\n";
+					std::cout << "\n\n";
 					
 					//check if drawn item is a strike and if so, notify user and remove the strike from the 'bag'
 					if (vectorDigit[randomInteger] == 'S')
 					{
-						cout << "You picked a strike!!" << endl;
+						std::cout << "You picked a strike!!" << endl;
 						vectorDigit.erase(vectorDigit.begin() + randomInteger);
 						topRange = topRange - 1;
 						strikes++;
@@ -76,20 +80,20 @@ int main()
 					else
 					{
 						//if drawn item is a digit, display it and ask what position the user thinks it belongs in
-						cout << "You picked the digit: " << vectorDigit[randomInteger] << endl;
-						cout << "Which position do you think it is? " << endl;
-						cin >> position;
+						std::cout << "You picked the digit: " << vectorDigit[randomInteger] << endl;
+						std::cout << "Which position do you think it is? " << endl;
+						std::cin >> position;
 						
 						//if the user guesses incorrectly, let the user know
 						if (vectorDigit[randomInteger] != arrayPrice[position])
 						{
-							cout << "Sorry, you guessed the wrong position." << endl;
+							std::cout << "Sorry, you guessed the wrong position." << endl;
 						}
 						
 						//if the user is correct, display appropriate message and check which digit was placed so the panel message can be updated
 						else
 						{
-							cout << "Correct! You guessed the right position" << endl;
+							std::cout << "Correct! You guessed the right position" << endl;
 							if (position == 0)
 							{
 								place0 = vectorDigit[randomInteger];
@@ -121,8 +125,8 @@ int main()
 					//if the user has reached 3 strikes, the game is over.
 					if (strikes == 3)
 					{
-						cout << "Sorry, you lost the game." << endl;
-						cout << "The price of the car was: $" << price << endl;
+						std::cout << "Sorry, you lost the game." << endl;
+						std::cout << "The price of the car was: $" << price << endl;
 						break;
 					}
 				}
@@ -130,18 +134,18 @@ int main()
 		} while (play == 'p' || play == 'P');
 
 		//see if the user wants to continue and continue if desired
-		cout << "\nWould you like to play again? (Y/N): ";
-		cin >> choice;
-		cout << endl << endl;
+		std::cout << "\nWould you like to play again? (Y/N): ";
+		std::cin >> choice;
+		std::cout << endl << endl;
 
 	} while (choice == 'y' || choice == 'Y');
 
 	//display author of the program
-	cout << "Programmed by Brent Kinney" << endl;
+	std::cout << "Programmed by Brent Kinney" << endl;
 
-	cout << "Press [Enter] key to end..."; //prompt lets user know
-	cin.ignore(256, '\n');
-	cin.get();
+	std::cout << "Press [Enter] key to end..."; //prompt lets user know
+	std::cin.ignore(256, '\n');
+	std::cin.get();
 
 	return 0;
 }
