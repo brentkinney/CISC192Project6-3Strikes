@@ -38,6 +38,7 @@ int main()
 
 		do
 		{
+			//check if user has correctly placed all digits
 			if (digitsPlaced == 5)
 			{
 				cout << "Congrats, you won! You placed all 5 digits correctly.\n";
@@ -46,19 +47,25 @@ int main()
 			}
 			else
 			{
+				//ask user if they would like to draw a chip or quit
 				cout << "Enter 'p' to pick a chip, or any other key to quit the game: ";
 				cin >> play;
 				if (play == 'p' || play == 'P')
 				{
+					//display the strikes hit, digits placed, and panel
 					cout << "Strikes hit: " << strikes << endl;
 					cout << "Digits placed: " << digitsPlaced << endl;
 					cout << "     PANEL   :$" << place4 << " " << place3 << " " << place2 << " " << place1 << " " << place0 << endl;
 					cout << "     POSITION: 4 3 2 1 0" << endl;
+					
+					//draw random number
 					std::random_device rd;
 					std::mt19937 rng(rd());
 					std::uniform_int_distribution<int> uni(0, topRange);
 					auto randomInteger = uni(rng);
 					cout << "\n\n";
+					
+					//check if drawn item is a strike and if so, notify user and remove the strike from the 'bag'
 					if (vectorDigit[randomInteger] == 'S')
 					{
 						cout << "You picked a strike!!" << endl;
@@ -68,13 +75,18 @@ int main()
 					}
 					else
 					{
+						//if drawn item is a digit, display it and ask what position the user thinks it belongs in
 						cout << "You picked the digit: " << vectorDigit[randomInteger] << endl;
 						cout << "Which position do you think it is? " << endl;
 						cin >> position;
+						
+						//if the user guesses incorrectly, let the user know
 						if (vectorDigit[randomInteger] != arrayPrice[position])
 						{
 							cout << "Sorry, you guessed the wrong position." << endl;
 						}
+						
+						//if the user is correct, display appropriate message and check which digit was placed so the panel message can be updated
 						else
 						{
 							cout << "Correct! You guessed the right position" << endl;
@@ -98,6 +110,7 @@ int main()
 							{
 								place4 = vectorDigit[randomInteger];
 							}
+							//remove the placed digit from the 'bag'
 							vectorDigit.erase(vectorDigit.begin() + randomInteger);
 							topRange = topRange - 1;
 							digitsPlaced++;
@@ -105,6 +118,7 @@ int main()
 						}
 
 					}
+					//if the user has reached 3 strikes, the game is over.
 					if (strikes == 3)
 					{
 						cout << "Sorry, you lost the game." << endl;
